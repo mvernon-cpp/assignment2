@@ -1,30 +1,6 @@
 #include "employee.h"
 #include <string.h>
 
-/* TASK 1-b */
-
-//Wrapper classes
-PtrToEmployee searchEmployeeBySalary(PtrToConstEmployee ptr, int size, double salary)
-{
-   return searchEmployeeTable(ptr, size, &salary, compareEmployeeSalary);
-}
-
-PtrToEmployee searchEmployeeByPhone(PtrToConstEmployee ptr, int size, char *phone)
-{
-   return searchEmployeeTable(ptr, size, &phone, compareEmployeePhone);
-}
-
-//Comparison functions
-static int compareEmployeeSalary(const void *targetPtr, PtrToConstEmployee tableValuePtr)
-{
-   return *(double *)targetPtr != tableValuePtr->salary; //const void *targetPtr ==> typecast as long pointer
-}
-
-static int compareEmployeePhone(const void *targetPtr, PtrToConstEmployee tableValuePtr)
-{
-   return strcmp((char *)targetPtr, tableValuePtr->phone); //const void *targetPtr ==> typecast as char pointer
-}
-
 /* LECTURE 12 */
 
 //NOTE: 5 functions have been defined below
@@ -69,4 +45,28 @@ PtrToEmployee searchEmployeeByNumber(PtrToConstEmployee ptr, int size, long numb
 PtrToEmployee searchEmployeeByName(PtrToConstEmployee ptr, int size, char *name)
 {
    return searchEmployeeTable(ptr, size, name, compareEmployeeName);
+}
+
+/* TASK 1-b */
+
+//Comparison functions
+static int compareEmployeeSalary(const void *targetPtr, PtrToConstEmployee tableValuePtr)
+{
+   return *(double *)targetPtr != tableValuePtr->salary; //const void *targetPtr ==> typecast as double pointer
+}
+
+static int compareEmployeePhone(const void *targetPtr, PtrToConstEmployee tableValuePtr)
+{
+   return strcmp((char *)targetPtr, tableValuePtr->phone); //const void *targetPtr ==> typecast as char pointer
+}
+
+//Wrapper classes
+PtrToEmployee searchEmployeeBySalary(PtrToConstEmployee ptr, int size, double salary)
+{
+   return searchEmployeeTable(ptr, size, &salary, compareEmployeeSalary);
+}
+
+PtrToEmployee searchEmployeeByPhone(PtrToConstEmployee ptr, int size, char *phone)
+{
+   return searchEmployeeTable(ptr, size, &phone, compareEmployeePhone);
 }
